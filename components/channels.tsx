@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { youtube_v3 } from "googleapis"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
@@ -34,14 +35,34 @@ export default function Channels() {
 
   return (
     <>
-      <h1>My Youtube Channels</h1>
-      {channels?.map((channel) => (
-        <div key={channel.id}>
-          <div>{channel.snippet?.title}</div>
-          <div>{channel.snippet?.description}</div>
-          <div>{channel.snippet?.publishedAt}</div>
-        </div>
-      ))}
+      <h2>My Youtube Channels</h2>
+      <div className={styles.channels}>
+        {channels?.map((channel) => (
+          <div key={channel.id} className={styles.channel}>
+            <span
+              style={{
+                backgroundImage: `url('${channel.snippet?.thumbnails?.default?.url}')`,
+              }}
+              className={styles.thumbnail}
+            />
+            <div className={styles.channelInfo}>
+              <p className={styles.channelTitle}>{channel.snippet?.title}</p>
+              <p className={styles.channelDescription}>
+                {channel.snippet?.description}
+              </p>
+              <p className={styles.channelPublishedAt}>
+                Published at{" "}
+                {dayjs(channel.snippet?.publishedAt).format("MM/DD/YYYY")}
+              </p>
+              <p className={styles.channelStats}>
+                {channel.statistics?.videoCount} Videos,{" "}
+                {channel.statistics?.subscriberCount} Subscribers,{" "}
+                {channel.statistics?.viewCount} Views
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   )
 }

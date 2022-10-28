@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { youtubereporting_v1 } from "googleapis"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
@@ -104,12 +105,13 @@ export default function Jobs() {
 
   return (
     <>
-      <h1>My Jobs</h1>
-      <div>
+      <h2>My Jobs</h2>
+      <div className={styles.jobCreationForm}>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Job name here"
         />
         <select
           value={reportTypeId}
@@ -125,7 +127,7 @@ export default function Jobs() {
         <button onClick={handleCreateJob}>Create job</button>
       </div>
       {jobs && (
-        <table>
+        <table className={styles.jobsTable}>
           <thead>
             <tr>
               <th>Name</th>
@@ -145,7 +147,7 @@ export default function Jobs() {
                     )?.name
                   }
                 </td>
-                <td>{job.createTime}</td>
+                <td>{dayjs(job.createTime).format("MM/DD/YYYY")}</td>
                 <td>
                   <button onClick={() => handleDeleteJob(job.id)}>
                     Delete

@@ -17,7 +17,7 @@ export default async function handler(
     const channels = await youtube.channels
       .list({
         mine: true,
-        part: ["id,contentDetails,snippet"],
+        part: ["id,statistics,snippet"],
       })
       .then((response) => response.data)
 

@@ -12,6 +12,7 @@ body {
 li,
 p {
   line-height: 1.5rem;
+  margin: 0;
 }
 
 a {
