@@ -1,3 +1,4 @@
+import "next-auth"
 import "next-auth/jwt"
 
 // Read more at: https://next-auth.js.org/getting-started/typescript#module-augmentation
@@ -5,6 +6,8 @@ import "next-auth/jwt"
 declare module "next-auth/jwt" {
   interface JWT {
     accessToken?: string
+    refreshToken?: string
+    accessTokenExpires: number
   }
 }
 
